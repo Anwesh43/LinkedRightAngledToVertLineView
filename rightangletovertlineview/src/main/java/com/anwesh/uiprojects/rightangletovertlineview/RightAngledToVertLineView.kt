@@ -158,7 +158,7 @@ class RightAngledToVertLineView(ctx : Context) : View(ctx) {
         }
     }
 
-    data class RightAngledToVerLine(var i : Int) {
+    data class RightAngledToVertLine(var i : Int) {
 
         private val root : RAVLNode = RAVLNode(0)
         private var curr : RAVLNode = root
@@ -179,6 +179,28 @@ class RightAngledToVertLineView(ctx : Context) : View(ctx) {
 
         fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : RightAngledToVertLineView) {
+
+        private val animator : Animator = Animator(view)
+        private val ravl : RightAngledToVertLine = RightAngledToVertLine(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            ravl.draw(canvas, paint)
+            animator.animate {
+                ravl.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            ravl.startUpdating {
+                animator.start()
+            }
         }
     }
 }
