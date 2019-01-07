@@ -20,6 +20,7 @@ val strokeFactor : Int = 90
 val sizeFactor : Float = 2.7f
 val foreColor : Int = Color.parseColor("#1565C0")
 val backColor : Int = Color.parseColor("#BDBDBD")
+val delay : Long = 35
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -40,7 +41,7 @@ fun Canvas.drawRAVLNode(i : Int, scale : Float, paint : Paint) {
     val sc2 : Float = scale.divideScale(1, 2)
     save()
     translate(w / 2, gap * (i + 1))
-    rotate(90f * sc2)
+    rotate(-90f * sc2)
     drawLine(-size, 0f, 0f, 0f, paint)
     save()
     rotate(90f * sc1)
@@ -93,7 +94,7 @@ class RightAngledToVertLineView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(delay)
                     view.invalidate()
                 } catch(ex : Exception) {
 
