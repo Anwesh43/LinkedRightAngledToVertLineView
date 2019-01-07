@@ -204,4 +204,13 @@ class RightAngledToVertLineView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : RightAngledToVertLineView {
+            val view : RightAngledToVertLineView = RightAngledToVertLineView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
